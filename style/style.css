@@ -1,0 +1,52 @@
+html,body,.container {
+    height:100%;
+	text-align: center;
+	font-family: "Raleway", Arial, Helvetica, sans-serif;
+}
+.container{
+	background-color: #888;
+	width: 80%;
+	padding-bottom: 100%; 
+	margin-bottom: -100%;
+	
+	
+}
+
+#taskList{
+	width:100%
+	display: inline;
+	background-color: #ffe6e6;
+	padding-bottom: 100%; 
+	margin-bottom: -100%;
+	padding-top: 50px;
+	float:left;
+	clear:right;
+}
+
+#timespace{
+	display: inline;
+	padding-bottom: 100%; 
+	margin-bottom: -100%;
+	padding-top: 70px; 
+	background-color: #e6e6ff; 
+	/* margin-left: 400px; */
+	float:left;
+	clear:right; 
+	
+}
+
+#timer{
+	height: 2em;
+	width: 7em;
+	font-weight: 300;
+	background-color: #000033;
+	color: white;
+	margin: 20px;
+	padding: 10px 0 10px 0;
+	font-size: 3em;
+	border-radius: 5px;
+}
+
+#taskList h3{
+	margin-top: 3em;
+}

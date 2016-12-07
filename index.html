@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="ToDoApp">
+<head>
+	<meta charset='utf-8'>
+	<title>Basic Javascript Pomodoro Timer </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway">
+	<link rel="stylesheet" type="text/css" href="style/style.css">	
+</head>
+<body>
+	<div class="container" ng-controller="TodoCtrl">
+		<span ng-show="todo.selected"> <strong>{{}}</strong></span> 
+		<!--show only selected todo during session and hide all other items -->
+			<div class="container left"> 
+				<div class="section col-md-6" id="taskList" >
+					<header>
+						<h2>What do you want to get done?</h2>
+						
+						<form ng-submit="addTodo()">
+							<input class="form-control" placeholder="What needs to get done?" ng-model="todo" required>
+							<input type="submit" style="margin-top: 10px;" value="Add Task">
+							<!--I can add a new item initially, once I filter completed, not working-->
+						</form>
+					</header>
+					
+					<div ng-model="todo.selected" ng-if="true" class="selectedItem">{{todo.title}}</div>
+					
+					<section>
+						<h3>All your todo items</h3>
+						<div class="list-group" style='text-align: left;'>
+							<p>Select an item to begin a work session</p>
+							  <p>
+								Sort by:
+								<select ng-model="orderBy">
+								  <option>completed</option>
+								  <option>title</option>
+								  <option>timestamp</option>
+								  <option>-timestamp</option>
+								</select>
+							  </p>
+							<div ng-repeat="todo in todos | orderBy:orderBy" class="list-group-item" >	
+							
+								<input type="radio" name="selectedItem" ng-model="todo.selected" ng-change="todos.$save(todo)" ng-if="!todo.completed" ng-disabled="todo.selected"/>
+															
+								<label ng-model="todo.completed" ng-change="todos.$save(todo)" ng-if="todo.completed" ng-style="{'text-decoration':'line-through','color':'#ccc'}" >{{todo.title }}</label>
+								
+								<label ng-if="!todo.completed" ng-style="{'text-decoration':'none'}" ng-click="todo.selected" >{{todo.title }}</label>
+								
+								<input type="checkbox" class="pull-right" ng-model="todo.completed" ng-change="todos.$save(todo)" />
+								
+								<button class='btn btn-danger btn-sm pull-right' style="margin-right: 10px;" ng-click="removeTodo(todo)">X</button>
+							</div>
+						</div>
+					
+						<div class="btn btn-default" ng-click="clearCompletedTodos()">Hide completed items</div>
+						<div class="btn btn-default" ng-click="viewAll()">See all Items</div>
+						<button class='btn btn-danger btn-sm pull-right' ng-click="deleteAllCompleteTodos()">Delete completed items</button>
+					</section>
+				</div>
+			</div>
+			<div class="container center">
+				<div class="section col-md-6" id="timespace" ng-controller="TimeCtrl" >
+					<div id='timer'>{{timeRemaining}}</div>
+					<div >				
+						<button type="button" class="btn btn-success" ng-click="start()" >Start Working</button>
+						<button type="button" class="btn btn-warning" ng-click="stop()" >Stop</button>
+						<button type="button" class="btn btn-info" ng-click='startBreak()'>Take a Break</button>
+						<button type="button" class="btn btn-primary" ng-click='startRest()'>Rest</button>
+					</div>
+				</div>
+			</div>
+		</div>  
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	    <!-- Angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+		<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+		<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+	
+	<script src="js/main.js"></script>
+
+</body>
+</html>
